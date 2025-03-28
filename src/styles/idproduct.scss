@@ -1,0 +1,205 @@
+// .product-details-container {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   height: 100vh;
+//   background-color: #f4f4f4;
+//   padding: 2rem;
+// }
+
+// .product-details-row {
+//   display: flex;
+//   flex-wrap: nowrap; /* Ensure items are side by side */
+//   justify-content: space-between;
+//   align-items: flex-start;
+//   gap: 2rem;
+//   width: 100%;
+// }
+
+// .product-details-left,
+// .product-details-right {
+//   flex: 1; /* Ensure both columns take equal space */
+// }
+
+// .product-image-wrapper {
+//   border-radius: 8px;
+//   overflow: hidden;
+//   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+// }
+
+// .product-details-image {
+//   object-fit: cover;
+//   border-radius: 8px;
+//   width: 400px;
+//   height: 400px;
+// }
+
+// .product-details-content {
+//   max-width: 500px;
+// }
+
+// .product-details-title {
+//   font-size: 2rem;
+//   font-weight: bold;
+//   margin-bottom: 1rem;
+//   color: #333;
+// }
+
+// .product-details-description {
+//   font-size: 1rem;
+//   margin-bottom: 1rem;
+//   color: #555;
+// }
+
+// .product-details-price {
+//   font-size: 1.2rem;
+//   font-weight: bold;
+//   margin-bottom: 1rem;
+//   color: #000;
+// }
+
+// .product-details-category {
+//   font-size: 1rem;
+//   color: #777;
+// }
+
+// .back-to-products-button {
+//   text-align: end;
+//   margin-top: 2rem;
+// }
+
+
+
+
+
+
+
+
+
+@use "@carbon/colors" as *;
+@use "@carbon/layout" as *;
+
+/* General Layout */
+
+.grid-div{
+  margin-top: $spacing-10;;
+}
+.dropdown-language{
+  margin-right: $spacing-09;
+}
+
+.product-details-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; /* Center content horizontally */
+  align-items: flex-start; /* Align items to the top */
+  min-height: 100vh;
+  padding: 2rem; /* Adjust padding as needed */
+  background-color: var(--color-background, #f4f4f4); /* Default background for light mode */
+  color: var(--color-text, #333); /* Default text color */
+  box-sizing: border-box;
+}
+
+.product-details-row {
+  display: flex;
+  flex-wrap: nowrap; /* Ensure items are side by side */
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+.product-tile {
+  background-color: var(--tile-background, #e5e5e5); /* Default tile background */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  width: 100%;
+  max-width: 900px; /* Optional: Prevent tiles from being too wide */
+}
+
+.product-details-left,
+.product-details-right {
+  flex: 1; /* Ensure both columns take equal space */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align content to the top */
+}
+
+.product-image-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem; /* Adjust padding as needed */
+}
+
+.product-details-image {
+  object-fit: cover; /* Ensures the image covers the div without stretching */
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+
+.product-details-content {
+  max-width: 100%;
+  padding: 1rem;
+}
+
+.product-details-title {
+  font-size: 2rem; /* Adjust as needed */
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--color-text, #333);
+}
+
+.product-details-description {
+  font-size: 1rem; /* Adjust as needed */
+  margin-bottom: 1rem;
+  color: var(--color-text, #555);
+}
+
+.product-details-price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: var(--color-text, #000);
+}
+
+.product-details-category {
+  font-size: 1rem;
+  color: var(--color-text, #777);
+}
+
+.back-to-products-button {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* Header styles */
+.header-light {
+  background-color: var(--color-white, #fff);
+  color: var(--color-black, #000);
+}
+
+.header-dark {
+  background-color: var(--color-black, #000);
+  color: var(--color-white, #fff);
+}
+
+/* Dark Mode Styles */
+[data-theme="dark"] {
+  --color-background: #333;
+  --color-text: #fff;
+  --tile-background: #555;
+}
+
+/* Light Mode Styles */
+[data-theme="light"] {
+  --color-background: #f4f4f4;
+  --color-text: #333;
+  --tile-background: #e5e5e5;
+}
+

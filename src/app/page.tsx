@@ -1,95 +1,139 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import { useTranslation } from "react-i18next";
+import {
+  Button,
+  Column,
+  Grid,
+  Modal,
+  PasswordInput,
+  Row,
+  TextInput,
+  Tile,
+  Header,
+  HeaderName,
+  HeaderGlobalBar,
+  HeaderGlobalAction,
+  Dropdown,
+} from "@carbon/react";
+import * as Yup from "yup";
+import { Formik, Form } from "formik";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import {
+  Awake,
+  AsleepFilled,
+  NotificationFilled,
+  NotificationNew,
+  PhoneFilled,
+  Phone,
+} from "@carbon/icons-react";
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const { t, i18n } = useTranslation();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [isAwake, setIsAwake] = useState(true);
+  const router = useRouter();
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+  const handleChangeLanguage = (language: string) => i18n.changeLanguage(language);
+
+  const handleOnSubmit = (values: { Username: string; Password: string }) => {
+    console.log("Submitted values:", values);
+    setModalOpen(true);
+    setTimeout(() => {
+      setModalOpen(false);
+      router.push("/dashboard");
+    }, 1000);
+  };
+
+  const validationSchema = Yup.object({
+    Username: Yup.string().required(t("Username is required")),
+    Password: Yup.string()
+      .min(6, t("Password must contain at least 6 characters"))
+      .required(t("Password is required")),
+  });
+
+  useEffect(() => {
+    document.body.setAttribute("data-theme", isAwake ? "light" : "dark");
+  }, [isAwake]);
+
+  return (
+    <>
+      <Header aria-label={t("IBM Platform Name")} className={isAwake ? "header-awake" : "header-asleep"}>
+        <HeaderName href="#" prefix="" className="icons">
+          {t("Intellisphere")}
+        </HeaderName>
+        <HeaderGlobalBar>
+          <Dropdown
+            id="language-dropdown"
+            label={t("Select Language")}
+            items={[
+              { id: "en", text: t("English") },
+              { id: "fr", text: t("Français") },
+              { id: "ja", text: t("日本語") },
+            ]}
+            itemToString={(item) => (item ? item.text : "")}
+            onChange={({ selectedItem }) => selectedItem && handleChangeLanguage(selectedItem.id)} titleText={undefined}          />
+          <HeaderGlobalAction aria-label={t("User Profile")}>
+            {isAwake ? <NotificationFilled /> : <NotificationNew />}
+          </HeaderGlobalAction>
+          <HeaderGlobalAction aria-label={t("User Contact")}>
+            {isAwake ? <PhoneFilled /> : <Phone />}
+          </HeaderGlobalAction>
+          <HeaderGlobalAction aria-label={t("Mode Toggle")} onClick={() => setIsAwake(!isAwake)}>
+            {isAwake ? <Awake /> : <AsleepFilled />}
+          </HeaderGlobalAction>
+        </HeaderGlobalBar>
+      </Header>
+      <Grid fullWidth className="login-grid">
+        <Row>
+          <Column lg={6} md={8} sm={12}>
+            <Tile className="login-tile">
+              <h1 id="form-heading">{t("Welcome to Intellisphere")}</h1>
+              <Formik
+                initialValues={{ Username: "", Password: "" }}
+                validationSchema={validationSchema}
+                onSubmit={handleOnSubmit}
+              >
+                {({ errors, touched, handleChange, handleBlur, values }) => (
+                  <Form className="form">
+                    <TextInput
+                      id="username-input"
+                      name="Username"
+                      labelText={t("Username")}
+                      placeholder={t("Enter your username")}
+                      value={values.Username}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      invalid={touched.Username && !!errors.Username}
+                      invalidText={errors.Username}
+                      size="lg"
+                    />
+                    <PasswordInput
+                      id="password-input"
+                      name="Password"
+                      labelText={t("Password")}
+                      placeholder={t("Enter your password")}
+                      value={values.Password}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      invalid={touched.Password && !!errors.Password}
+                      invalidText={errors.Password}
+                      size="lg"
+                    />
+                    <Button type="submit" size="md" className="login-button">
+                      {t("Login")}
+                    </Button>
+                  </Form>
+                )}
+              </Formik>
+            </Tile>
+          </Column>
+        </Row>
+        <Modal open={modalOpen} modalHeading={t("Success")} passiveModal>
+          <p>{t("Hi {{username}}, your login was successful.")}</p>
+        </Modal>
+      </Grid>
+    </>
   );
 }

@@ -1,0 +1,124 @@
+@use "@carbon/colors" as *;
+@use "@carbon/layout" as *;
+
+// Global page styles
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; // Center content vertically
+  align-items: center; // Center content horizontally
+  height: 100vh; // Full viewport height
+  padding: 1rem; // Adjust padding for smaller screens
+  transition: background-color 0.3s ease; // Smooth transition for background-color
+}
+
+// Global styles for light and dark mode
+.dashboard-heading {
+  text-align: center;
+  margin-bottom: $spacing-06; // Using Carbon's spacing-lg
+  font-size: 1.5rem; // Adjust font size for smaller screens
+
+  @media (max-width: 768px) {
+    font-size: 1.25rem; // Further reduce font size for tablets
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1rem; // Smallest font size for mobile
+  }
+
+  // Light mode: default text color
+  &.body-light {
+    color: var(--cds-text-01); // Light mode text color (primary text color)
+  }
+
+  // Dark mode: text color should be white
+  &.body-dark {
+    color: white; // White color for dark mode
+  }
+}
+
+// Dark and light mode styles for body
+.body-light {
+  background-color: $cool-gray-10; // Light background (Cool Gray 10)
+  color: var(--cds-text-primary); // Light text color
+}
+
+.body-dark {
+  background-color: $cool-gray-90; // Dark background (Cool Gray 90)
+  color: var(--cds-text-on-color); // Dark text color (lighter)
+}
+
+// Grid and row styles
+.dashboard-grid {
+  display: flex;
+  justify-content: center; // Center the grid horizontally
+  align-items: center; // Center the grid vertically
+  width: 100%;
+  flex-wrap: wrap; // Allow wrapping for smaller screens
+  gap: $spacing-05; // Increase gap for better spacing on smaller screens
+}
+
+.dashboard-row {
+  display: flex;
+  flex-direction: row; // Arrange items horizontally
+  justify-content: center; // Center items horizontally
+  align-items: center; // Align items vertically in the center
+  gap: $spacing-04; // Using Carbon's spacing-sm for gap
+  flex-wrap: wrap; // Allow wrapping for smaller screens
+}
+
+// Tile styles with hover effect
+.dashboard-tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: $spacing-06; // Using Carbon's spacing-lg
+  width: 100%;
+  max-width: 200px; // Adjust max-width for smaller screens
+  background-color: var(--cds-layer); // Tile background
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); // Tile shadow
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; // Smooth transition for hover effect
+
+  @media (max-width: 768px) {
+    max-width: 150px; // Further reduce max-width for tablets
+    padding: $spacing-04; // Reduce padding for smaller screens
+  }
+
+  @media (max-width: 480px) {
+    max-width: 100%; // Full width for mobile screens
+    padding: $spacing-03; // Further reduce padding for mobile
+  }
+
+  &:hover {
+    transform: scale(1.05); // Slightly enlarge the tile on hover
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); // Add shadow on hover
+  }
+}
+
+.dashboard-tile-text {
+  text-align: center;
+  color: var(--cds-text-01); // IBM Carbon primary text color
+  margin-top: $spacing-03; // Using Carbon's spacing-xs for spacing
+}
+
+// Header styles for light and dark mode
+.header-awake {
+  background-color: $header-bg-color-light; // Light background (Cool Gray 10)
+  color: $black; // Black color for text (Black)
+}
+
+.header-asleep {
+  background-color: $header-bg-color-dark; // Dark background (Cool Gray 90)
+  color: $white; // White color for text (White)
+}
+
+.header-awake .icons,
+.header-asleep .icons {
+  color: var(--cds-text-on-color); // Icons' color for dark mode
+}
+
+.header-asleep .icons {
+  color: $white; // Ensure icons are white in dark mode
+}

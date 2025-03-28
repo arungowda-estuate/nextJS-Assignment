@@ -1,0 +1,23 @@
+{
+  "IBM Platform Name": "IBMプラットフォーム",
+  "Intellisphere": "インテリスフィア",
+  "User Profile": "ユーザープロファイル",
+  "User Contact": "ユーザー連絡先",
+  "Settings": "設定",
+  "Mode Toggle": "モード切替",
+  "Select Language": "言語を選択",
+  "English": "英語",
+  "Français": "フランス語",
+  "日本語": "日本語",
+  "Welcome to Intellisphere": "インテリスフィアへようこそ",
+  "Username": "ユーザー名",
+  "Enter your username": "ユーザー名を入力してください",
+  "Password": "パスワード",
+  "Enter your password": "パスワードを入力してください",
+  "Login": "ログイン",
+  "Username is required": "ユーザー名は必須です",
+  "Password must contain at least 6 characters": "パスワードは6文字以上である必要があります",
+  "Password is required": "パスワードは必須です",
+  "Success": "成功",
+  "Hi {{username}}, your login was successful.": "こんにちは {{username}}、ログインに成功しました。"
+}

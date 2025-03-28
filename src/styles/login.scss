@@ -1,0 +1,138 @@
+@use "@carbon/colors" as *;
+@use "@carbon/layout" as *;
+
+$primary-color: $blue-60;
+$header-bg-color-light: $cool-gray-10;
+$header-bg-color-dark: $cool-gray-90;
+
+body {
+  font-family: "IBM Plex Sans", sans-serif;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  &[data-theme="dark"],
+  &[data-theme="light"] {
+    .login-tile {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: translateY(-$spacing-01);
+      }
+    }
+
+    #language-dropdown .bx--list-box__field {
+      text-decoration: none;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+  }
+
+  &[data-theme="dark"] {
+    background-color: $cool-gray-90;
+    color: $white;
+
+    .login-tile {
+      background-color: $gray-100;
+      color: $white;
+
+      &:hover {
+        box-shadow: 0 $spacing-02 $spacing-05 rgba(0, 0, 0, 0.5);
+      }
+    }
+
+    #language-dropdown .bx--list-box__field {
+      background-color: $gray-100;
+      color: $white;
+      border: 1px solid $gray-80;
+
+      &:hover {
+        background-color: $gray-90;
+      }
+    }
+  }
+
+  &[data-theme="light"] {
+    background-color: $cool-gray-10;
+    color: $gray-90;
+
+    .login-tile {
+      background-color: $white;
+      color: $gray-90;
+
+      &:hover {
+        box-shadow: 0 $spacing-02 $spacing-05 rgba(0, 0, 0, 0.2);
+      }
+    }
+
+    #language-dropdown .bx--list-box__field {
+      background-color: $white;
+      color: $gray-90;
+      border: 1px solid $gray-30;
+
+      &:hover {
+        background-color: $gray-20;
+      }
+    }
+  }
+}
+
+.login-grid {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-tile {
+  padding: $spacing-06;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border-radius: $spacing-02;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: $spacing-04;
+  color: $primary-color;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-03;
+}
+
+button {
+  background-color: $blue-60;
+  color: $white;
+  padding: $spacing-03 $spacing-04;
+  border: none;
+  border-radius: $spacing-01;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: $blue-70;
+  }
+}
+
+.header-awake {
+  background-color: $header-bg-color-light;
+}
+
+.header-asleep {
+  background-color: $header-bg-color-dark;
+
+  .icons {
+    color: $white;
+  }
+}
+
+#language-dropdown {
+  margin-right: $spacing-05;
+  width: 200px;
+
+  .bx--list-box__menu {
+    max-height: $spacing-09;
+    overflow-y: auto;
+  }
+}

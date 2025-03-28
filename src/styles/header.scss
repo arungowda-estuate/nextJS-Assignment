@@ -1,0 +1,16 @@
+@use "@carbon/colors" as *;
+@use "@carbon/layout" as *;
+$primary-color: $blue-60;
+$header-bg-color-light: $cool-gray-10;
+$header-bg-color-dark: $cool-gray-90;
+.header-awake {
+  background-color: $header-bg-color-light;
+}
+
+.header-asleep {
+  background-color: $header-bg-color-dark;
+
+  .icons {
+    color: $white;
+  }
+}
