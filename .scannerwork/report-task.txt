@@ -1,6 +1,6 @@
-projectKey=Example
+projectKey=nextJS-Assignment
 serverUrl=http://localhost:9000
 serverVersion=25.3.0.104237
-dashboardUrl=http://localhost:9000/dashboard?id=Example
-ceTaskId=543c05ee-9516-44eb-ba5b-6d6daecb13b0
-ceTaskUrl=http://localhost:9000/api/ce/task?id=543c05ee-9516-44eb-ba5b-6d6daecb13b0
+dashboardUrl=http://localhost:9000/dashboard?id=nextJS-Assignment
+ceTaskId=c3b36511-4ca1-4712-882e-76601a0c1639
+ceTaskUrl=http://localhost:9000/api/ce/task?id=c3b36511-4ca1-4712-882e-76601a0c1639

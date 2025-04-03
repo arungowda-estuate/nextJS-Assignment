@@ -1,24 +1,44 @@
-import React from 'react';
-import { Dropdown } from '@carbon/react';
+import { Dropdown } from "@carbon/react";
 
 interface DropdownComponentProps {
-  onChange: (value: string) => void;
+  helperText?: string;
+  invalidText?: string;
+  warnText?: string;
+
+  labelText: string;
+  titleText: string;
+  items: { text: string }[];
+  selectedItem: string;
+  onChange: (text: string) => void;
+  disabled: boolean;
 }
 
-const DropdownComponent: React.FC<DropdownComponentProps> = ({ onChange }) => {
-  const items = [
-    { id: 'option-1', text: 'Table 1' },
-    { id: 'option-2', text: 'Table 2' },
-    { id: 'option-3', text: 'Table 3' },
-  ];
+const DropdownComponent = ({
+  helperText,
+  invalidText,
+  warnText,
+
+  labelText,
+  titleText,
+  items,
+  selectedItem,
+  onChange,
+  disabled,
+}: DropdownComponentProps) => {
+  const selected = items.find((item) => item.text === selectedItem) || null;
 
   return (
     <Dropdown
-      id="dropdown"
-      titleText="Dropdown"
-      label="Select an option"
+      helperText={helperText}
+      id="default"
+      invalidText={invalidText}
+      itemToString={(item) => (item ? item.text : "")}
       items={items}
-      itemToString={(item) => (item ? item.text : '')}
+      label={labelText}
+      titleText={titleText}
+      warnText={warnText}
+      disabled={disabled}
+      selectedItem={selected}
       onChange={({ selectedItem }) => {
         if (selectedItem) {
           onChange(selectedItem.text);

@@ -1,152 +1,115 @@
 @use "@carbon/colors" as *;
-@use "@carbon/layout" as *;
-// Color Map Integration
-$light-mode-bg: $white;
-$light-mode-text: $black;
+@use "@carbon/layout" as layout;
 
-$dark-mode-bg: $black;
-$dark-mode-text: $white;
-
-$light-mode-card-bg: $cool-gray-10;
-$dark-mode-card-bg: $cool-gray-80;
-
-$light-mode-border: $cool-gray-20;
-$dark-mode-border: $cool-gray-60;
-
-// Spacing Map Integration
-$spacing-md: $spacing-05;
-$spacing-lg: $spacing-06;
-$spacing-sm: $spacing-04;
-$spacing-xl: $spacing-07;
-
-// Global Styles for both light and dark modes
 .products-container {
-  padding: $spacing-lg;
-  background-color: $light-mode-bg; // Light mode background
-
-  &.body-dark {
-    background-color: $dark-mode-bg; // Dark mode background
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: layout.rem(32px);
+  background-color: cds-background;
+  height: 100vh;
+  justify-content: flex-start;
+  gap: layout.$spacing-06;
 }
 
 .products-heading {
+  font-size: layout.rem(32px);
+  font-weight: bold;
   text-align: center;
-  font-size: 2.5rem; // Increased size of the heading
-  color: $light-mode-text; // Light mode text color
-  margin-top: $spacing-xl; // Added space between header and product heading
-
-  &.body-dark {
-    color: $dark-mode-text; // Dark mode text color
-  }
+  color: cds-text-high-emphasis;
+  margin-top: layout.$spacing-09;
+  margin-bottom: layout.$spacing-06;
 }
 
 .products-grid {
   display: flex;
-  flex-direction: column;
-  gap: $spacing-xl; // Use large spacing between rows
-}
-
-.products-row {
-  display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  align-items: stretch;
-  gap: $spacing-sm; // Small spacing between columns
+  gap: layout.$spacing-04;
+  width: 100%;
+  max-width: 1200px;
+  margin-top: layout.$spacing-04;
 }
 
 .product-tile {
+  background-color: cds-background-inverse;
+  border-radius: layout.rem(8px);
+  padding: layout.$spacing-04;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: $spacing-md;
-  background-color: $light-mode-card-bg; // Light mode tile background
-  border: 1px solid $light-mode-border; // Light mode border color
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-  height: 400px; // Fixed height for consistent tile sizes
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  overflow: hidden;
+  box-shadow: 0 layout.rem(2px) layout.rem(6px) rgba(0, 0, 0, 0.1);
+  width: layout.rem(250px);
+  height: layout.rem(350px);
+  transition: box-shadow 0.3s ease;
+  margin-bottom: layout.$spacing-04;
 
   &:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  }
-
-  &.body-dark {
-    background-color: $dark-mode-card-bg; // Dark mode tile background
-    border: 1px solid $dark-mode-border; // Dark mode border color
-    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2); // Light shadow for dark mode
+    box-shadow: 0 layout.rem(4px) layout.rem(12px) rgba(0, 0, 0, 0.2);
   }
 }
 
 .product-image-container {
   width: 100%;
-  height: 150px; // Fixed height for image container
-  overflow: hidden;
-  border-radius: 8px;
-  margin-bottom: $spacing-sm;
-}
+  height: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: layout.$spacing-04;
 
-.product-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; // Make sure image fills the container without distortion
+  .product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: layout.rem(6px);
+  }
 }
 
 .product-title-container {
-  width: 100%;
-  padding: $spacing-sm;
-  display: flex;
-  justify-content: center;
-}
-
-.product-title {
-  font-size: 1rem;
-  font-weight: bold;
-  color: $light-mode-text; // Light mode title color
+  margin-top: layout.$spacing-03;
   text-align: center;
-  margin: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 100%; // Ensure title fits without overflow
 
-  &.body-dark {
-    color: $dark-mode-text; // Dark mode title color
+  .product-title {
+    font-size: layout.rem(18px);
+    font-weight: bold;
+    color: cds-text-high-emphasis;
+    margin: 0;
   }
 }
 
 .product-button-container {
+  margin-top: layout.$spacing-04;
   width: 100%;
-  padding: $spacing-sm;
   display: flex;
   justify-content: center;
+
+  .product-button {
+    padding: layout.$spacing-03 layout.$spacing-04;
+    width: 100%;
+    max-width: layout.rem(200px);
+  }
 }
 
-.product-button {
-  padding: $spacing-03;
-  font-size: 1rem;
-  background-color: $blue-50;
-  color: $white;
-  border-radius: 4px;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  width: 100%; // Ensure the button spans the entire width of the tile
+@media (max-width: 1200px) {
+  .product-tile {
+    width: layout.rem(220px);
+  }
+}
 
-  &:hover {
-    background-color: $blue-60; // Darker blue on hover
-    transform: translateY(-2px); // Slight hover lift effect
+@media (max-width: 768px) {
+  .product-tile {
+    width: layout.rem(180px);
+  }
+}
+
+@media (max-width: 480px) {
+  .products-heading {
+    font-size: layout.rem(28px);
   }
 
-  &.body-dark {
-    background-color: $blue-20;
-    color: $white;
-
-    &:hover {
-      background-color: $blue-30;
-    }
+  .product-tile {
+    width: 100%;
+    margin-bottom: layout.$spacing-03;
   }
 }

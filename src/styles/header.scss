@@ -1,16 +1,43 @@
-@use "@carbon/colors" as *;
-@use "@carbon/layout" as *;
-$primary-color: $blue-60;
-$header-bg-color-light: $cool-gray-10;
-$header-bg-color-dark: $cool-gray-90;
-.header-awake {
-  background-color: $header-bg-color-light;
+[data-theme="light"] {
+  header {
+    background-color: var(--background);
+    color: var(--textPrimary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .header-name,
+  .icons {
+    color: var(--textPrimary);
+    fill: var(--textPrimary);
+    transition: color 0.3s ease, fill 0.3s ease;
+  }
+
+  .header-global-bar,
+  .dropdown-small {
+    color: var(--textPrimary);
+    background-color: var(--background);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
 }
 
-.header-asleep {
-  background-color: $header-bg-color-dark;
+[data-theme="dark"] {
+  header {
+    background-color: var(--backgroundInverse);
+    color: var(--textOnColor);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
 
+  .header-name,
   .icons {
-    color: $white;
+    color: var(--textOnColor);
+    fill: var(--textOnColor);
+    transition: color 0.3s ease, fill 0.3s ease;
+  }
+
+  .header-global-bar,
+  .dropdown-small {
+    color: var(--textOnColor);
+    background-color: var(--backgroundInverse);
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 }

@@ -1,116 +1,78 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import {
-  Grid,
-  Row,
-  Column,
-  ClickableTile,
-  Header,
-  HeaderName,
-  HeaderGlobalBar,
-  HeaderGlobalAction,
-} from "@carbon/react";
+import { Grid, Row, Column, ClickableTile } from "@carbon/react";
 import {
   Archive,
   TrashCan,
   FolderDetailsReference,
-  Download,
   Folder,
 } from "@carbon/icons-react";
-import {
-  Awake,
-  AsleepFilled,
-  UserAvatar,
-  UserAvatarFilled,
-  NotificationFilled,
-  NotificationNew,
-  Phone,
-  PhoneFilled,
-} from "@carbon/icons-react";
-import { useState } from "react";
+
+import { useCallback, useState } from "react";
+import AppHeader from "@/components/header";
+import i18n from "@/i18n";
+import { useTranslation } from "react-i18next";
 
 export default function Dashboard() {
-  const [isAwake, setIsAwake] = useState(true); // Manage theme mode state
+  const [isAwake, setIsAwake] = useState(true);
   const router = useRouter();
-  const headerClass = isAwake ? "header-awake" : "header-asleep";
-  const bodyClass = isAwake ? "body-light" : "body-dark"; // Body class for light/dark mode
+  const { t } = useTranslation();
+  const bodyClass = isAwake ? "body-light" : "body-dark";
 
-  const toggleMode = () => {
-    setIsAwake(!isAwake);
-  };
+  const toggleMode = () => setIsAwake(!isAwake);
+
+  const handleChangeLanguage = useCallback(
+    (language: string) => i18n.changeLanguage(language),
+    []
+  );
+
+  const tiles = [
+    {
+      icon: TrashCan,
+      label: t("dashboard.tiles.archive"),
+      route: "/dashboard/archive",
+    },
+    {
+      icon: Archive,
+      label: t("dashboard.tiles.form"),
+      route: "/dashboard/redux-form",
+    },
+    {
+      icon: FolderDetailsReference,
+      label: t("dashboard.tiles.shared"),
+      route: "/shared",
+    },
+    {
+      icon: Folder,
+      label: t("dashboard.tiles.products"),
+      route: "/dashboard/products",
+    },
+  ];
 
   return (
     <div className={`dashboard-container ${bodyClass}`}>
-      <Header aria-label="IBM Platform Name" className={headerClass}>
-        <HeaderName href="#" prefix="IBM" className="icons">
-          IntelliSphere
-        </HeaderName>
-        <HeaderGlobalBar>
-          <HeaderGlobalAction aria-label="User Profile">
-            {isAwake ? <NotificationFilled /> : <NotificationNew />}
-          </HeaderGlobalAction>
-          <HeaderGlobalAction aria-label="User Contact">
-            {isAwake ? <PhoneFilled /> : <Phone />}
-          </HeaderGlobalAction>
-          <HeaderGlobalAction aria-label="Settings">
-            {isAwake ? <UserAvatarFilled /> : <UserAvatar />}
-          </HeaderGlobalAction>
-          <HeaderGlobalAction aria-label="Mode Toggle" onClick={toggleMode}>
-            {isAwake ? <Awake /> : <AsleepFilled />}
-          </HeaderGlobalAction>
-        </HeaderGlobalBar>
-      </Header>
+      <AppHeader
+        isAwake={isAwake}
+        toggleMode={toggleMode}
+        handleChangeLanguage={handleChangeLanguage}
+      />
       <h1 className={`dashboard-heading ${bodyClass}`}>
-        Intellisphere Dashboard
-      </h1>{" "}
-      {/* Apply mode-specific class */}
+        {t("dashboard.heading")}
+      </h1>
       <Grid className="dashboard-grid">
         <Row className="dashboard-row">
-          <Column lg={2} md={3} sm={12}>
-            <ClickableTile
-              className="dashboard-tile"
-              onClick={() => router.push("/archive")}
-            >
-              <Archive size={48} />
-              <h3 className="dashboard-tile-text">Archive</h3>
-            </ClickableTile>
-          </Column>
-          <Column lg={2} md={3} sm={12}>
-          
-            <ClickableTile
-              className="dashboard-tile"
-              onClick={() => router.push("/redux-form")}
-            >
-              <TrashCan size={48} />
-              <h3 className="dashboard-tile-text">Form</h3>
-            </ClickableTile>
-          
-          </Column>
-          <Column lg={2} md={3} sm={12}>
-            <ClickableTile
-              className="dashboard-tile"
-              onClick={() => router.push("/shared")}
-            >
-              <FolderDetailsReference size={48} />
-              <h3 className="dashboard-tile-text">Shared</h3>
-            </ClickableTile>
-          </Column>
-          <Column lg={2} md={3} sm={12}>
-            <ClickableTile className="dashboard-tile">
-              <Download size={48} />
-              <h3 className="dashboard-tile-text">Products</h3>
-            </ClickableTile>
-          </Column>
-          <Column lg={2} md={3} sm={12}>
-            <ClickableTile
-              className="dashboard-tile"
-              onClick={() => router.push("/products")}
-            >
-              <Folder size={48} />
-              <h3 className="dashboard-tile-text">Browse</h3>
-            </ClickableTile>
-          </Column>
+          {tiles.map(({ icon: Icon, label, route }) => (
+            <Column key={route} lg={2} md={3} sm={12}>
+              <ClickableTile
+                className="dashboard-tile"
+                onClick={route ? () => router.push(route) : undefined}
+              >
+                <Icon size={48} />
+                <h3 className="dashboard-tile-text">{label}</h3>
+              </ClickableTile>
+            </Column>
+          ))}
         </Row>
       </Grid>
     </div>

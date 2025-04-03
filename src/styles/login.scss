@@ -28,11 +28,16 @@ body {
   }
 
   &[data-theme="dark"] {
-    background-color: $cool-gray-90;
+    background-color: $gray-100;
     color: $white;
 
+    header {
+      background-color: $cool-gray-90;
+      color: $white;
+    }
+
     .login-tile {
-      background-color: $gray-100;
+      background-color: $gray-90;
       color: $white;
 
       &:hover {
@@ -41,12 +46,12 @@ body {
     }
 
     #language-dropdown .bx--list-box__field {
-      background-color: $gray-100;
+      background-color: $gray-90;
       color: $white;
       border: 1px solid $gray-80;
 
       &:hover {
-        background-color: $gray-90;
+        background-color: $gray-80;
       }
     }
   }
@@ -54,6 +59,11 @@ body {
   &[data-theme="light"] {
     background-color: $cool-gray-10;
     color: $gray-90;
+
+    header {
+      background-color: $cool-gray-10;
+      color: $gray-90;
+    }
 
     .login-tile {
       background-color: $white;

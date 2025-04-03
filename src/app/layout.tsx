@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.scss";
-import I18nProvider from "@/providers/I18nProvider";
+import I18nProvider from "@/language/providers/I18nProvider";
 
 
 export const metadata: Metadata = {

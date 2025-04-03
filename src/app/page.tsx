@@ -1,33 +1,19 @@
-"use client";
-
+"use client"
 import { useTranslation } from "react-i18next";
 import {
   Button,
   Column,
   Grid,
   Modal,
-  PasswordInput,
   Row,
   TextInput,
   Tile,
-  Header,
-  HeaderName,
-  HeaderGlobalBar,
-  HeaderGlobalAction,
-  Dropdown,
 } from "@carbon/react";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import {
-  Awake,
-  AsleepFilled,
-  NotificationFilled,
-  NotificationNew,
-  PhoneFilled,
-  Phone,
-} from "@carbon/icons-react";
+import AppHeader from "@/components/header";
 
 export default function Home() {
   const { t, i18n } = useTranslation();
@@ -35,16 +21,26 @@ export default function Home() {
   const [isAwake, setIsAwake] = useState(true);
   const router = useRouter();
 
-  const handleChangeLanguage = (language: string) => i18n.changeLanguage(language);
+  const handleChangeLanguage = useCallback(
+    (language: string) => i18n.changeLanguage(language),
+    [i18n]
+  );
 
-  const handleOnSubmit = (values: { Username: string; Password: string }) => {
-    console.log("Submitted values:", values);
-    setModalOpen(true);
-    setTimeout(() => {
-      setModalOpen(false);
-      router.push("/dashboard");
-    }, 1000);
-  };
+  const toggleMode = useCallback(() => {
+    setIsAwake((prev) => !prev);
+  }, []);
+
+  const handleOnSubmit = useCallback(
+    (values: { Username: string; Password: string }) => {
+      console.log("Submitted values:", values);
+      setModalOpen(true);
+      setTimeout(() => {
+        setModalOpen(false);
+        router.push("/dashboard");
+      }, 1000);
+    },
+    [router]
+  );
 
   const validationSchema = Yup.object({
     Username: Yup.string().required(t("Username is required")),
@@ -59,32 +55,11 @@ export default function Home() {
 
   return (
     <>
-      <Header aria-label={t("IBM Platform Name")} className={isAwake ? "header-awake" : "header-asleep"}>
-        <HeaderName href="#" prefix="" className="icons">
-          {t("Intellisphere")}
-        </HeaderName>
-        <HeaderGlobalBar>
-          <Dropdown
-            id="language-dropdown"
-            label={t("Select Language")}
-            items={[
-              { id: "en", text: t("English") },
-              { id: "fr", text: t("Français") },
-              { id: "ja", text: t("日本語") },
-            ]}
-            itemToString={(item) => (item ? item.text : "")}
-            onChange={({ selectedItem }) => selectedItem && handleChangeLanguage(selectedItem.id)} titleText={undefined}          />
-          <HeaderGlobalAction aria-label={t("User Profile")}>
-            {isAwake ? <NotificationFilled /> : <NotificationNew />}
-          </HeaderGlobalAction>
-          <HeaderGlobalAction aria-label={t("User Contact")}>
-            {isAwake ? <PhoneFilled /> : <Phone />}
-          </HeaderGlobalAction>
-          <HeaderGlobalAction aria-label={t("Mode Toggle")} onClick={() => setIsAwake(!isAwake)}>
-            {isAwake ? <Awake /> : <AsleepFilled />}
-          </HeaderGlobalAction>
-        </HeaderGlobalBar>
-      </Header>
+      <AppHeader
+        isAwake={isAwake}
+        toggleMode={toggleMode}
+        handleChangeLanguage={handleChangeLanguage}
+      />
       <Grid fullWidth className="login-grid">
         <Row>
           <Column lg={6} md={8} sm={12}>
@@ -109,11 +84,12 @@ export default function Home() {
                       invalidText={errors.Username}
                       size="lg"
                     />
-                    <PasswordInput
+                    <TextInput
                       id="password-input"
                       name="Password"
                       labelText={t("Password")}
                       placeholder={t("Enter your password")}
+                      type="password"
                       value={values.Password}
                       onChange={handleChange}
                       onBlur={handleBlur}
